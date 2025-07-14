@@ -17,11 +17,12 @@
         }
         .button-grid {
             /* Responsive grid: 3 columns on small, 4 on medium, 6 on large */
+            /* Ensures consistent 6 columns on larger screens as per image */
             @apply grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4 mt-6;
         }
         .sound-button {
-            /* Adjusted rounded corners to be more prominent like the image */
-            @apply w-full aspect-square flex items-center justify-center text-white font-bold text-3xl sm:text-4xl rounded-xl /* Ensured rounded-xl */
+            /* Refined rounded corners to match the image more closely (rounded-lg) */
+            @apply w-full aspect-square flex items-center justify-center text-white font-bold text-3xl sm:text-4xl rounded-lg /* This is the key for the rounded look */
                    bg-blue-600 hover:bg-blue-700 active:bg-blue-800 transition-all duration-200 ease-in-out
                    transform hover:-translate-y-1 active:translate-y-0 shadow-md hover:shadow-lg;
             /* Ensure text is centered and readable */
@@ -227,6 +228,7 @@
                     } catch (apiError) {
                         console.error("Error calling Gemini API for word:", apiError);
                         wordDisplay.textContent = "Failed to suggest word. Network error or API issue.";
+                        console.log("Error calling Gemini API for word:", apiError);
                     } finally {
                         loadingSpinnerWord.classList.add('hidden');
                     }
