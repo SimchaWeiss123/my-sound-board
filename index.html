@@ -18,16 +18,78 @@
         .button-grid {
             /* Responsive grid: 3 columns on small, 4 on medium, 6 on large */
             /* Ensures consistent 6 columns on larger screens as per image */
-            @apply grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4 mt-6;
+            display: grid; /* Explicitly set display to grid */
+            grid-template-columns: repeat(3, 1fr); /* Default for small screens */
+            gap: 12px; /* Consistent gap */
+            margin-top: 24px; /* Consistent margin */
+
+            /* Tailwind responsive prefixes for grid columns */
+            @media (min-width: 640px) { /* sm breakpoint */
+                grid-template-columns: repeat(4, 1fr);
+            }
+            @media (min-width: 768px) { /* md breakpoint */
+                grid-template-columns: repeat(5, 1fr);
+            }
+            @media (min-width: 1024px) { /* lg breakpoint */
+                grid-template-columns: repeat(6, 1fr);
+            }
         }
         .sound-button {
-            /* Refined rounded corners to match the image more closely (rounded-lg) */
-            @apply w-full aspect-square flex items-center justify-center text-white font-bold text-3xl sm:text-4xl rounded-lg /* This is the key for the rounded look */
-                   bg-blue-600 hover:bg-blue-700 active:bg-blue-800 transition-all duration-200 ease-in-out
-                   transform hover:-translate-y-1 active:translate-y-0 shadow-md hover:shadow-lg;
-            /* Ensure text is centered and readable */
+            /* Applying all core button styles directly here for robustness */
+            width: 100%;
+            padding-top: 100%; /* Makes it square by maintaining aspect ratio */
+            position: relative; /* For absolute positioning of content */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
             line-height: 1; /* Adjust line height to center single characters */
+            border: none; /* Remove default button border */
+            cursor: pointer;
+            text-decoration: none; /* Remove underline */
+
+            /* Styling to match the image */
+            background-color: #2563eb; /* A shade of blue similar to the image (Tailwind blue-600) */
+            color: white;
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Shadow */
+
+            /* Hover and active states */
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
         }
+
+        .sound-button:hover {
+            background-color: #1d4ed8; /* Darker blue on hover (Tailwind blue-700) */
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .sound-button:active {
+            background-color: #1e40af; /* Even darker on active (Tailwind blue-800) */
+            transform: translateY(0);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        /* Inner span for letter to ensure correct sizing and centering */
+        .sound-button span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem; /* Large font size */
+            /* Responsive font sizes */
+            @media (min-width: 640px) { /* sm breakpoint */
+                font-size: 3.5rem;
+            }
+            @media (min-width: 768px) { /* md breakpoint */
+                font-size: 4rem;
+            }
+        }
+
         /* Loading spinner animation */
         .spinner {
             border: 4px solid rgba(0, 0, 0, 0.1);
@@ -55,34 +117,35 @@
         </div>
 
         <div class="button-grid">
-            <!-- Each button has a data-sound attribute pointing to its audio file -->
-            <!-- IMPORTANT: Double-check the file extension (.mp3 or .wav) for EACH file in your GitHub sounds folder! -->
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/soundsA.mp3">A</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/B.wav">B</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/C.wav">C</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/D.wav">D</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/E.mp3">E</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/F.wav">F</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/G.wav">G</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/H.mp3">H</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/I.mp3">I</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/J.mp3">J</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/K.mp3">K</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/L.mp3">L</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/M.mp3">M</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/N.mp3">N</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/O.mp3">O</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/P.mp3">P</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/Q.mp3">Q</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/R.mp3">R</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/S.mp3">S</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/T.mp3">T</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/U.mp3">U</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/V.mp3">V</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/W.mp3">W</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/X.mp3">X</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/Y.mp3">Y</button>
-            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/Z.mp3">Z</button>
+            <!-- IMPORTANT: Ensure EACH letter is wrapped in a <button> tag like this: -->
+            <!-- <button class="sound-button" data-sound="YOUR_AUDIO_URL"><span>A</span></button> -->
+            <!-- Double-check the file extension (.mp3 or .wav) for EACH file in your GitHub sounds folder! -->
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/soundsA.mp3"><span>A</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/B.wav"><span>B</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/C.wav"><span>C</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/D.wav"><span>D</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/E.mp3"><span>E</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/F.wav"><span>F</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/G.wav"><span>G</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/H.mp3"><span>H</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/I.mp3"><span>I</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/J.mp3"><span>J</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/K.mp3"><span>K</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/L.mp3"><span>L</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/M.mp3"><span>M</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/N.mp3"><span>N</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/O.mp3"><span>O</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/P.mp3"><span>P</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/Q.mp3"><span>Q</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/R.mp3"><span>R</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/S.mp3"><span>S</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/T.mp3"><span>T</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/U.mp3"><span>U</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/V.mp3"><span>V</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/W.mp3"><span>W</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/X.mp3"><span>X</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/Y.mp3"><span>Y</span></button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/Z.mp3"><span>Z</span></button>
         </div>
 
         <!-- Section for LLM-generated facts -->
@@ -126,12 +189,15 @@
             soundButtons.forEach(button => {
                 button.addEventListener('click', async () => {
                     const soundFilePath = button.dataset.sound;
-                    const letter = button.textContent;
+                    const letter = button.textContent; // This will now get the text from the <span> inside the button
+
+                    // Define apiKey and apiUrl at a higher scope within the click handler
+                    const apiKey = ""; // Canvas will automatically provide this in runtime
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                     console.log("Attempting to play sound from:", soundFilePath);
 
                     // --- IMPORTANT: This check confirms if you've updated the URLs ---
-                    // This check is now less likely to trigger if all URLs are updated correctly.
                     if (soundFilePath.includes("example.com")) {
                         console.error("ERROR: The audio URL is still a placeholder (example.com). Please replace it with your actual hosted audio file URL.");
                         showMessageBox("Audio URL Error", "The audio link for this button is still a placeholder. Please update the 'data-sound' attribute in the HTML with the real URL of your hosted audio file.");
@@ -171,9 +237,7 @@
                         const promptFact = `Generate a very short, fun, and interesting fact about the letter "${letter}". Keep it to one sentence.`;
                         chatHistoryFact.push({ role: "user", parts: [{ text: promptFact }] });
                         const payloadFact = { contents: chatHistoryFact };
-                        const apiKey = "";
-                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
+                        // apiUrl is now defined in the outer scope of the click handler
                         const responseFact = await fetch(apiUrl, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -208,6 +272,7 @@
                         const promptWord = `Suggest one common English word that starts with the letter "${letter}". Then, provide a concise definition for that word. Format your response as "Word: [word] - Definition: [definition]".`;
                         chatHistoryWord.push({ role: "user", parts: [{ text: promptWord }] });
                         const payloadWord = { contents: chatHistoryWord };
+                        // apiUrl is now defined in the outer scope of the click handler
                         const responseWord = await fetch(apiUrl, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -228,7 +293,6 @@
                     } catch (apiError) {
                         console.error("Error calling Gemini API for word:", apiError);
                         wordDisplay.textContent = "Failed to suggest word. Network error or API issue.";
-                        console.log("Error calling Gemini API for word:", apiError);
                     } finally {
                         loadingSpinnerWord.classList.add('hidden');
                     }
