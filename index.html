@@ -20,7 +20,8 @@
             @apply grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4 mt-6;
         }
         .sound-button {
-            @apply w-full aspect-square flex items-center justify-center text-white font-bold text-3xl sm:text-4xl rounded-lg
+            /* Adjusted rounded corners to be more prominent like the image */
+            @apply w-full aspect-square flex items-center justify-center text-white font-bold text-3xl sm:text-4xl rounded-xl /* Ensured rounded-xl */
                    bg-blue-600 hover:bg-blue-700 active:bg-blue-800 transition-all duration-200 ease-in-out
                    transform hover:-translate-y-1 active:translate-y-0 shadow-md hover:shadow-lg;
             /* Ensure text is centered and readable */
@@ -54,35 +55,33 @@
 
         <div class="button-grid">
             <!-- Each button has a data-sound attribute pointing to its audio file -->
-            <!-- IMPORTANT: You MUST replace these placeholder URLs with your actual hosted audio file URLs. -->
-            <!-- For example, if you host your sounds on GitHub Pages, a URL might look like: -->
-            <!-- data-sound="https://yourusername.github.io/your-repo-name/sounds/https://simchaweiss123.github.io/my-sound-board/sounds/A.mp3" -->
-            <button class="sound-button" data-sound="https://simchaweiss123.github.io/my-sound-board/sounds/soundsA.mp3">A</button>
-            <button class="sound-button" data-sound="https://simchaweiss123.github.io/my-sound-board/sounds/B.wav">B</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/C.mp3">C</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/D.mp3">D</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/E.mp3">E</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/F.mp3">F</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/G.mp3">G</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/H.mp3">H</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/I.mp3">I</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/J.mp3">J</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/K.mp3">K</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/L.mp3">L</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/M.mp3">M</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/N.mp3">N</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/O.mp3">O</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/P.mp3">P</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/Q.mp3">Q</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/R.mp3">R</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/S.mp3">S</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/T.mp3">T</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/U.mp3">U</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/V.mp3">V</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/W.mp3">W</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/X.mp3">X</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/Y.mp3">Y</button>
-            <button class="sound-button" data-sound="https://example.com/sounds/Z.mp3">Z</button>
+            <!-- IMPORTANT: Double-check the file extension (.mp3 or .wav) for EACH file in your GitHub sounds folder! -->
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/soundsA.mp3">A</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/B.wav">B</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/C.wav">C</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/D.wav">D</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/E.mp3">E</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/F.wav">F</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/G.wav">G</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/H.mp3">H</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/I.mp3">I</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/J.mp3">J</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/K.mp3">K</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/L.mp3">L</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/M.mp3">M</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/N.mp3">N</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/O.mp3">O</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/P.mp3">P</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/Q.mp3">Q</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/R.mp3">R</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/S.mp3">S</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/T.mp3">T</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/U.mp3">U</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/V.mp3">V</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/W.mp3">W</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/X.mp3">X</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/Y.mp3">Y</button>
+            <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/Z.mp3">Z</button>
         </div>
 
         <!-- Section for LLM-generated facts -->
@@ -131,6 +130,7 @@
                     console.log("Attempting to play sound from:", soundFilePath);
 
                     // --- IMPORTANT: This check confirms if you've updated the URLs ---
+                    // This check is now less likely to trigger if all URLs are updated correctly.
                     if (soundFilePath.includes("example.com")) {
                         console.error("ERROR: The audio URL is still a placeholder (example.com). Please replace it with your actual hosted audio file URL.");
                         showMessageBox("Audio URL Error", "The audio link for this button is still a placeholder. Please update the 'data-sound' attribute in the HTML with the real URL of your hosted audio file.");
