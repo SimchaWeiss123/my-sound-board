@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Alphabet Soundboard</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the Inter font and general layout */
+        body {
+            font-family: 'Inter', sans-serif;
+            @apply bg-gray-100 flex items-center justify-center min-h-screen p-4;
+        }
+        .sound-board-container {
+            @apply bg-white rounded-xl shadow-lg p-6 md:p-8 text-center max-w-4xl w-full;
+        }
+        .button-grid {
+            /* Responsive grid: 3 columns on small, 4 on medium, 6 on large */
+            @apply grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4 mt-6;
+        }
+        .sound-button {
+            @apply w-full aspect-square flex items-center justify-center text-white font-bold text-3xl sm:text-4xl rounded-lg
+                   bg-blue-600 hover:bg-blue-700 active:bg-blue-800 transition-all duration-200 ease-in-out
+                   transform hover:-translate-y-1 active:translate-y-0 shadow-md hover:shadow-lg;
+            /* Ensure text is centered and readable */
+            line-height: 1; /* Adjust line height to center single characters */
+        }
+        /* Loading spinner animation */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #3b82f6; /* Tailwind blue-500 */
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sound-board-container">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">Alphabet Soundboard</h1>
+        <p class="text-gray-600 mb-6">Click a letter to hear its sound, get a fun fact, and a new word! ✨</p>
+
+        <!-- Message for autoplay policy -->
+        <div id="autoplay-message" class="text-sm text-gray-500 mb-4 p-2 bg-yellow-100 border border-yellow-200 rounded-md">
+            (Please click any button to enable audio playback. Audio may be blocked until first interaction.)
+        </div>
+
+        <div class="button-grid">
+            <!-- Each button has a data-sound attribute pointing to its audio file -->
+            <!-- IMPORTANT: You MUST replace these placeholder URLs with your actual hosted audio file URLs. -->
+            <!-- For example, if you host your sounds on GitHub Pages, a URL might look like: -->
+            <!-- data-sound="https://yourusername.github.io/your-repo-name/sounds/A.mp3" -->
+            <button class="sound-button" data-sound="https://example.com/sounds/A.mp3">A</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/B.mp3">B</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/C.mp3">C</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/D.mp3">D</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/E.mp3">E</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/F.mp3">F</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/G.mp3">G</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/H.mp3">H</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/I.mp3">I</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/J.mp3">J</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/K.mp3">K</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/L.mp3">L</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/M.mp3">M</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/N.mp3">N</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/O.mp3">O</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/P.mp3">P</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/Q.mp3">Q</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/R.mp3">R</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/S.mp3">S</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/T.mp3">T</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/U.mp3">U</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/V.mp3">V</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/W.mp3">W</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/X.mp3">X</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/Y.mp3">Y</button>
+            <button class="sound-button" data-sound="https://example.com/sounds/Z.mp3">Z</button>
+        </div>
+
+        <!-- Section for LLM-generated facts -->
+        <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <h2 class="text-2xl font-bold text-blue-800 mb-3">✨ Fun Fact About the Letter ✨</h2>
+            <div id="fact-display" class="text-blue-700 text-lg min-h-[60px] flex items-center justify-center">
+                <p>Click a letter to learn something new!</p>
+            </div>
+            <div id="loading-spinner-fact" class="hidden flex justify-center items-center mt-4">
+                <div class="spinner"></div>
+                <span class="ml-2 text-gray-600">Generating fact...</span>
+            </div>
+        </div>
+
+        <!-- Section for LLM-generated word and definition -->
+        <div class="mt-8 p-4 bg-green-50 rounded-lg border border-green-200">
+            <h2 class="text-2xl font-bold text-green-800 mb-3">✨ Word of the Letter ✨</h2>
+            <div id="word-display" class="text-green-700 text-lg min-h-[60px] flex items-center justify-center text-left">
+                <p>Get a word and its definition for the letter!</p>
+            </div>
+            <div id="loading-spinner-word" class="hidden flex justify-center items-center mt-4">
+                <div class="spinner"></div>
+                <span class="ml-2 text-gray-600">Generating word...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const soundButtons = document.querySelectorAll('.sound-button');
+            const autoplayMessage = document.getElementById('autoplay-message');
+            const factDisplay = document.getElementById('fact-display');
+            const loadingSpinnerFact = document.getElementById('loading-spinner-fact');
+
+            const wordDisplay = document.getElementById('word-display');
+            const loadingSpinnerWord = document.getElementById('loading-spinner-word');
+
+            const audioPlayer = new Audio();
+            let audioEnabled = false;
+
+            soundButtons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    const soundFilePath = button.dataset.sound;
+                    const letter = button.textContent;
+
+                    console.log("Attempting to play sound from:", soundFilePath);
+
+                    // --- IMPORTANT: This check confirms if you've updated the URLs ---
+                    if (soundFilePath.includes("example.com")) {
+                        console.error("ERROR: The audio URL is still a placeholder (example.com). Please replace it with your actual hosted audio file URL.");
+                        showMessageBox("Audio URL Error", "The audio link for this button is still a placeholder. Please update the 'data-sound' attribute in the HTML with the real URL of your hosted audio file.");
+                        return; // Stop execution if URL is a placeholder
+                    }
+                    // --- END IMPORTANT CHECK ---
+
+                    if (!audioPlayer.paused) {
+                        audioPlayer.pause();
+                        audioPlayer.currentTime = 0;
+                    }
+
+                    audioPlayer.src = soundFilePath;
+
+                    try {
+                        await audioPlayer.play();
+                        if (autoplayMessage && !audioEnabled) {
+                            autoplayMessage.style.display = 'none';
+                            audioEnabled = true;
+                            console.log("Audio playback enabled after user interaction.");
+                        }
+                    } catch (error) {
+                        console.error("Error playing sound:", error);
+                        if (!audioEnabled) {
+                            showMessageBox("Audio Playback Blocked", "Your browser requires user interaction to enable audio. Please click 'OK' and then any sound button to begin.");
+                        } else {
+                            showMessageBox("Audio Loading Error", "Could not load or play the audio file. Please check the URL and ensure the file is accessible.");
+                        }
+                    }
+
+                    // --- LLM Integration: Generate a fun fact about the letter ---
+                    factDisplay.innerHTML = '';
+                    loadingSpinnerFact.classList.remove('hidden');
+
+                    try {
+                        let chatHistoryFact = [];
+                        const promptFact = `Generate a very short, fun, and interesting fact about the letter "${letter}". Keep it to one sentence.`;
+                        chatHistoryFact.push({ role: "user", parts: [{ text: promptFact }] });
+                        const payloadFact = { contents: chatHistoryFact };
+                        const apiKey = "";
+                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                        const responseFact = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payloadFact)
+                        });
+
+                        const resultFact = await responseFact.json();
+
+                        if (resultFact.candidates && resultFact.candidates.length > 0 &&
+                            resultFact.candidates[0].content && resultFact.candidates[0].content.parts &&
+                            resultFact.candidates[0].content.parts.length > 0) {
+                            const text = resultFact.candidates[0].content.parts[0].text;
+                            factDisplay.textContent = text;
+                        } else {
+                            factDisplay.textContent = "Could not generate a fact. Please try again.";
+                            console.error("Gemini API (Fact) response structure unexpected:", resultFact);
+                        }
+                    } catch (apiError) {
+                        console.error("Error calling Gemini API for fact:", apiError);
+                        factDisplay.textContent = "Failed to generate fact. Network error or API issue.";
+                    } finally {
+                        loadingSpinnerFact.classList.add('hidden');
+                    }
+                    // --- End LLM Integration (Fact) ---
+
+                    // --- LLM Integration: Generate a word and definition for the letter ---
+                    wordDisplay.innerHTML = '';
+                    loadingSpinnerWord.classList.remove('hidden');
+
+                    try {
+                        let chatHistoryWord = [];
+                        const promptWord = `Suggest one common English word that starts with the letter "${letter}". Then, provide a concise definition for that word. Format your response as "Word: [word] - Definition: [definition]".`;
+                        chatHistoryWord.push({ role: "user", parts: [{ text: promptWord }] });
+                        const payloadWord = { contents: chatHistoryWord };
+                        const responseWord = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payloadWord)
+                        });
+
+                        const resultWord = await responseWord.json();
+
+                        if (resultWord.candidates && resultWord.candidates.length > 0 &&
+                            resultWord.candidates[0].content && resultWord.candidates[0].content.parts &&
+                            resultWord.candidates[0].content.parts.length > 0) {
+                            const text = resultWord.candidates[0].content.parts[0].text;
+                            wordDisplay.textContent = text;
+                        } else {
+                            wordDisplay.textContent = "Could not suggest a word. Please try again.";
+                            console.error("Gemini API (Word) response structure unexpected:", resultWord);
+                        }
+                    } catch (apiError) {
+                        console.error("Error calling Gemini API for word:", apiError);
+                        wordDisplay.textContent = "Failed to suggest word. Network error or API issue.";
+                    } finally {
+                        loadingSpinnerWord.classList.add('hidden');
+                    }
+                    // --- End LLM Integration (Word) ---
+                });
+            });
+
+            // --- Custom Message Box Implementation (replaces alert()) ---
+            function showMessageBox(title, message) {
+                if (document.getElementById('custom-message-box')) {
+                    return;
+                }
+
+                const messageBox = document.createElement('div');
+                messageBox.id = 'custom-message-box';
+                messageBox.className = 'fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4 z-50';
+                messageBox.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full text-center">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">${title}</h3>
+                        <p class="text-gray-700 mb-6">${message}</p>
+                        <button id="message-box-ok" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition-colors duration-200">
+                            OK
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(messageBox);
+
+                document.getElementById('message-box-ok').addEventListener('click', () => {
+                    messageBox.remove();
+                });
+            }
+            // --- End Custom Message Box ---
+        });
+    </script>
+</body>
+</html>
