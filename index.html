@@ -13,7 +13,8 @@
             @apply bg-gray-100 flex items-center justify-center min-h-screen p-4;
         }
         .sound-board-container {
-            @apply bg-white rounded-xl shadow-lg p-6 md:p-8 text-center max-w-4xl w-full;
+            /* Adjusted max-width to make the entire board even smaller */
+            @apply bg-white rounded-xl shadow-lg p-6 md:p-8 text-center max-w-md /* Changed from max-w-xl to max-w-md */ w-full;
         }
         .button-grid {
             /* Responsive grid: 3 columns on small, 4 on medium, 6 on large */
@@ -80,13 +81,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem; /* Large font size */
+            font-size: 2.5rem; /* Increased font size for bigger text within smaller boxes */
             /* Responsive font sizes */
             @media (min-width: 640px) { /* sm breakpoint */
-                font-size: 3.5rem;
+                font-size: 3rem;
             }
             @media (min-width: 768px) { /* md breakpoint */
-                font-size: 4rem;
+                font-size: 3.5rem;
             }
         }
 
@@ -117,9 +118,8 @@
         </div>
 
         <div class="button-grid">
-            <!-- IMPORTANT: Ensure EACH letter is wrapped in a <button> tag like this: -->
-            <!-- <button class="sound-button" data-sound="YOUR_AUDIO_URL"><span>A</span></button> -->
-            <!-- Double-check the file extension (.mp3 or .wav) for EACH file in your GitHub sounds folder! -->
+            <!-- Each button has a data-sound attribute pointing to its audio file -->
+            <!-- IMPORTANT: Double-check the file extension (.mp3 or .wav) for EACH file in your GitHub sounds folder! -->
             <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/soundsA.mp3"><span>A</span></button>
             <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/B.wav"><span>B</span></button>
             <button class="sound-button" data-sound="https://raw.githubusercontent.com/SimchaWeiss123/my-sound-board/main/sounds/C.wav"><span>C</span></button>
